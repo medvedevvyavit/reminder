@@ -1,5 +1,6 @@
 package ru.med.reminder.model;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.UUID;
 import javax.persistence.EntityListeners;
@@ -17,19 +18,18 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Getter
 @Setter
-@EntityListeners(AuditingEntityListener.class)
 @MappedSuperclass
 public class BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
     @CreatedDate
-    private Date createdDate;
+    private LocalDateTime createdDate;
 
     @LastModifiedDate
-    private Date updatedDate;
+    private LocalDateTime updatedDate;
 
     @Enumerated(EnumType.STRING)
     private Status status;
