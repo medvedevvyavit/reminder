@@ -5,14 +5,8 @@ spring:
     password: ${DB_PASSWORD:postgres}
 
   jpa:
-    open-in-view: false
+    database: postgresql
     hibernate.ddl-auto: validate
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
-        jdbc.lob.non_contextual_creation: true
-        default_schema: public
-    show-sql: true
 
   liquibase:
     changeLog: classpath:/db/changelog/db.changelog-master.xml
