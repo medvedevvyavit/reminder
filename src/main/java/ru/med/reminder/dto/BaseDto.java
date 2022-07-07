@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import ru.med.reminder.model.Status;
+import ru.med.reminder.enums.UserStatus;
 
 @Getter
 @Setter
@@ -17,5 +17,5 @@ public class BaseDto {
     private UUID id;
     private Date createdDate;
     private Date updatedDate;
-    private Status status;
+    private UserStatus userStatus;
 }

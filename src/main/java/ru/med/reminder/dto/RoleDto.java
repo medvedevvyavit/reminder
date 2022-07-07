@@ -4,6 +4,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import ru.med.reminder.enums.RoleName;
 
 @Getter
 @Setter
@@ -11,5 +12,5 @@ import lombok.ToString;
 @ToString(callSuper = true)
 public class RoleDto extends BaseDto {
 
-    private String name;
+    private RoleName name;
 }
