@@ -7,7 +7,8 @@
         objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
 
     <changeSet id="fill-role-table" author="medvedevvyavit" objectQuotingStrategy="QUOTE_ALL_OBJECTS" runOnChange="true">
-        <loadUpdateData file="./data/role_name.csv" tableName="roles" primaryKey="id">
+        <loadUpdateData file="./data/role_name.csv" tableName="roles" primaryKey="id" separator=";">
+            <column name="id" type="string"/>
             <column name="name" type="string"/>
         </loadUpdateData>
     </changeSet>

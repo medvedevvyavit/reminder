@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import ru.med.reminder.enums.UserStatus;
 
 @Getter
 @Setter
@@ -12,6 +13,7 @@ import lombok.ToString;
 @ToString(callSuper = true)
 public class UserDto extends BaseDto {
 
+    private UserStatus userStatus;
     private String login;
     private String email;
     private String password;

@@ -23,7 +23,7 @@ public class UserController {
     private final UserService service;
 
     @PostMapping("register")
-    public ResponseEntity<UserDto> register(@RequestBody UserDto user) {
+    public ResponseEntity<String> register(@RequestBody UserDto user) {
         return new ResponseEntity<>(service.register(user), HttpStatus.OK);
     }
 

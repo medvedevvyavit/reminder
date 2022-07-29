@@ -5,49 +5,48 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd"
         objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
-    <changeSet id="1656591690284-1" author="medvedev.vv (generated)">
-        <createSequence incrementBy="1" sequenceName="hibernate_sequence" startValue="1"/>
-    </changeSet>
-    <changeSet id="1656591690284-2" author="medvedev.vv (generated)">
+    <changeSet id="1659003767439-1" author="medvedev.vv (generated)">
         <createTable tableName="roles">
-            <column name="id" type="UUID">
+            <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="pk_roles"/>
             </column>
-            <column name="created_date" type="DATETIME"/>
-            <column name="updated_date" type="DATETIME"/>
-            <column name="status" type="VARCHAR(255)"/>
             <column name="name" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
-    <changeSet id="1656591690284-3" author="medvedev.vv (generated)">
+    <changeSet id="1659003767439-2" author="medvedev.vv (generated)">
         <createTable tableName="users">
-            <column name="id" type="UUID">
+            <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="pk_users"/>
             </column>
             <column name="created_date" type="DATETIME"/>
             <column name="updated_date" type="DATETIME"/>
-            <column name="status" type="VARCHAR(255)"/>
-            <column name="login" type="VARCHAR(255)"/>
+            <column name="user_status" type="VARCHAR(255)"/>
+            <column name="login" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
             <column name="email" type="VARCHAR(255)"/>
             <column name="password" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
-    <changeSet id="1656591690284-4" author="medvedev.vv (generated)">
+    <changeSet id="1659003767439-3" author="medvedev.vv (generated)">
         <createTable tableName="users_roles">
-            <column name="role_id" type="UUID">
+            <column name="role_id" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
-            <column name="user_id" type="UUID">
+            <column name="user_id" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet id="1656591690284-5" author="medvedev.vv (generated)">
+    <changeSet id="1659003767439-4" author="medvedev.vv (generated)">
+        <addUniqueConstraint columnNames="login" constraintName="uc_users_login" tableName="users"/>
+    </changeSet>
+    <changeSet id="1659003767439-5" author="medvedev.vv (generated)">
         <addForeignKeyConstraint baseColumnNames="role_id" baseTableName="users_roles"
                                  constraintName="fk_userol_on_role" referencedColumnNames="id"
                                  referencedTableName="roles"/>
     </changeSet>
-    <changeSet id="1656591690284-6" author="medvedev.vv (generated)">
+    <changeSet id="1659003767439-6" author="medvedev.vv (generated)">
         <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="users_roles"
                                  constraintName="fk_userol_on_user" referencedColumnNames="id"
                                  referencedTableName="users"/>

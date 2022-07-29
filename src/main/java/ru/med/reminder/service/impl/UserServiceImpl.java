@@ -1,6 +1,7 @@
 package ru.med.reminder.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import javax.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +13,6 @@ import ru.med.reminder.enums.RoleName;
 import ru.med.reminder.enums.UserStatus;
 import ru.med.reminder.mapper.RoleMapper;
 import ru.med.reminder.mapper.UserMapper;
-import ru.med.reminder.model.Role;
 import ru.med.reminder.repository.RoleRepository;
 import ru.med.reminder.repository.UserRepository;
 import ru.med.reminder.service.UserService;
@@ -29,19 +29,20 @@ public class UserServiceImpl implements UserService {
     private final RoleMapper roleMapper;
 
     @Override
-    public UserDto register(UserDto userDto) {
+    public String register(UserDto userDto) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         userDto.setPassword(encoder.encode(userDto.getPassword()));
 
-        Role role = roleRepository
-                .findByName(RoleName.USER_ROLE.name())
-                .orElseThrow(() -> new EntityNotFoundException(format("default user role '{}' not found", RoleName.USER_ROLE.name())));
-        userDto.setRoles(List.of(roleMapper.toDto(role)));
+        if (Optional.of(userDto.getRoles()).isEmpty()) {
+            userDto.setRoles(List.of(roleMapper.toDto(roleRepository
+                    .findByName(RoleName.USER_ROLE.name())
+                    .orElseThrow(() -> new EntityNotFoundException(format("default user role '{}' not found", RoleName.USER_ROLE.name()))))));
+        }
 
         userDto.setUserStatus(UserStatus.ACTIVE);
-        var savedUser = userRepository.saveAndFlush(userMapper.toEntity(userDto));
-        log.info("The user with the login {} has been successfully registered", savedUser.getLogin());
-        return userMapper.toDto(savedUser);
+        var login = userRepository.save(userMapper.toEntity(userDto)).getLogin();
+        log.info("The user with the login {} has been successfully registered", login);
+        return login;
     }
 
     @Override
